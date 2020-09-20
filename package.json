@@ -23,6 +23,6 @@
 		"g3": "git push",
 		"gall": "g1 ; yarn g2 ; yarn g3"
 	},
-	"repository": "https://github.com/lipe-oliveira/bibiboom/",
+	"repository": "https://github.com/lipe-oliveira/vestja/",
 	"author": "lipe-oliveira <felipeoliveira.b@gmail.com>"
 }
