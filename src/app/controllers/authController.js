@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const feed = require('../models/user_feeds');
 const Image = require('../models/img');
+const Image_ocult = require('../models/imgs_ocult');
 const Restaurante = require('../models/user_restaurantes');
 const Receita = require('../models/user_receitas');
 const auth = require('../../config/auth.json');
@@ -278,6 +279,25 @@ router.post('/post_image', async (req, res) => {
 
 		img = await Image.findOne({ user }).populate('user', 'rate', 'description');
 		res.send({ img });
+	} catch (err) {
+		console.log('erro: ' + err);
+		return res.status(400).send({ error: `A imagem não pode ser inserida!` });
+	}
+});
+
+router.post('/post_image_ocult', async (req, res) => {
+	try {
+		const { user } = req.body;
+		let img = await Image_ocult.findOne({ user });
+
+		if (img != null) {
+			console.log('Já possui imagem. Substituindo...\n');
+			await Image_ocult.create({ user }, req.body);
+		} else {
+			console.log('NOT EXISTS!');
+			await Image.create(req.body);
+		}
+		res.send("YES");
 	} catch (err) {
 		console.log('erro: ' + err);
 		return res.status(400).send({ error: `A imagem não pode ser inserida!` });
