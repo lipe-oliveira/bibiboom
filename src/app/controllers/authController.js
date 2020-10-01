@@ -327,12 +327,19 @@ router.post('/post_receita', async (req, res) => {
 		if (await User.findById(user)) {
 			const usuario = User.findOne(user);
 
-			let pusher = [];
+			let pusher_ingredientes = [];
+			let pusher_qtde = [];
 
-			ingredientes.split(" ").forEach(element => {
+			ingredientes.split(",").forEach(element => {
 				console.log(element.toString());			
-					pusher.push(element);
+					pusher_ingredientes.push(element);
 			});
+
+			qtde.split(",").forEach(element => {
+				console.log(element.toString());			
+					pusher_qtde.push(element);
+			});
+
 			console.log(pusher);			
 
 			
