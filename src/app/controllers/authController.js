@@ -327,10 +327,11 @@ router.post('/post_receita', async (req, res) => {
 		if (await User.findById(user)) {
 			const usuario = User.findOne(user);
 
-			let ing = ingredientes.toString();
-		
+			ingredientes.split(" ").forEach(element => {
+				console.log(element.toString());			
 
-			console.log(ingredientes + "  " + qtde);			
+			});
+
 			
 			await Receita.create(req.body)
 			res.send(await (await Receita.find({})));
