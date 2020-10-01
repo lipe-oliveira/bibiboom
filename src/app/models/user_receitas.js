@@ -25,7 +25,7 @@ const schema = new mongoose.Schema({
 		}
 	],
 
-	descrição: {
+	description: {
 		type: String,
 		required: false
 	},

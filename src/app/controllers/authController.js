@@ -322,48 +322,20 @@ router.post('/get_image', async (req, res) => {
 
 router.post('/post_receita', async (req, res) => {
 	try {
-		const { user, ingredientes } = req.body;
+		const { nome, user, ingredientes, qtde, description } = req.body;
 		
 		if (await User.findById(user)) {
+			const usuario = User.findOne(user);
+
 			let ing = ingredientes.toString();
-			console.log(typeof ing);
-			console.log(ingredientes);
+		
 
-			ing = ing.substring(1);
-			ing = ing.slice(0, -1);
-
-			ing = ing.replaceAll("[", "{");
-			ing = ing.replaceAll("]", "}");
-
-			console.log(ing);
-
-			const { nome } = req.body;
-			
+			console.log(ingredientes + "  " + qtde);			
 			
 			await Receita.create(req.body)
 			res.send(await (await Receita.find({})));
 		}
-		/*
-		 else {
-			const { ratings } = req.body;
-
-			let pusher = {
-				user: ratings[0],
-				rate: ratings[1],
-				description: ratings[2]
-			};
-
-			await delete req.body.ratings;
-			await Restaurante.create(req.body);
-
-			let restaurante = await Restaurante.findOne({ id });
-
-			await restaurante.ratings.push(pusher);
-			await restaurante.save();
-
-			res.send(await Restaurante.findOne({ id }).populate('ratings.user', ['name', 'email']));
-		}
-		*/
+		
 	} catch (err) {
 		res.status(404).send('Já existe esse restaurante!');
 		console.log(err);
