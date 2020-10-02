@@ -331,18 +331,25 @@ router.post('/post_receita', async (req, res) => {
 			let pusher_qtde = [];
 
 			ingredientes.split(",").forEach(element => {
-				console.log(element.toString());			
 					pusher_ingredientes.push(element);
 			});
 
 			qtde.split(",").forEach(element => {
-				console.log(element.toString());			
 					pusher_qtde.push(element);
 			});
 
-			console.log(pusher_ingredientes);
-			console.log(pusher_qtde);			
+			console.log(pusher_qtde.length);
+			let pusher = [];
 
+			for(i = 0; pusher_ingredientes.length;i++){
+				pusher.push({
+					ingrediente: pusher_ingredientes[i],
+					quantidade: pusher_qtde[i]
+				}
+				);
+			}
+
+			console.log(pusher);			
 			
 			await Receita.create(req.body)
 			res.send(await (await Receita.find({})));
