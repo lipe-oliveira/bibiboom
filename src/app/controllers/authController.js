@@ -349,7 +349,7 @@ router.post('/post_receita', async (req, res) => {
 				);
 			}
 
-			console.log(pusher);			
+			console.log(pusher.toString());			
 			
 			await Receita.create(req.body)
 			res.send(await (await Receita.find({})));
