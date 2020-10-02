@@ -340,7 +340,8 @@ router.post('/post_receita', async (req, res) => {
 					pusher_qtde.push(element);
 			});
 
-			console.log(pusher);			
+			console.log(pusher_ingredientes);
+			console.log(pusher_qtde);			
 
 			
 			await Receita.create(req.body)
