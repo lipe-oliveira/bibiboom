@@ -205,6 +205,26 @@ router.post('/post_restaurantes', async (req, res) => {
 	}
 });
 
+router.post('/post_restaurantes_change_description_by_owner', async (req, res) => {
+	try {
+		const { id, desc} = req.body;
+		if (await Restaurante.findOne({ id })) {
+			let restaurante = await Restaurante.findOne({ id });
+
+			let pusher = {
+				description: desc
+			};
+
+			await restaurante.findByIdAndUpdate(description, desc);
+			await restaurante.save();
+			res.send(rest);
+		} else {
+			res.send("Esse restaurante não está registrado no nosso servidor ainda.");
+		}
+	} catch (err) {
+		res.status(404).send('Algo deu errado!');
+	}
+});
 router.post('/post_restaurantes_check', async (req, res) => {
 	try {
 		const { id } = req.body;
@@ -262,6 +282,7 @@ router.post('/post_restaurantes_get_img', async (req, res) => {
 		console.log(err);
 	}
 });
+
 
 router.post('/post_image', async (req, res) => {
 	try {
@@ -362,6 +383,7 @@ router.post('/post_receita', async (req, res) => {
 });
 
 router.get('/get_receita', async (req, res) => {
+
 	try {
 		res.send(res.send(await Receita.find({})));
 		
