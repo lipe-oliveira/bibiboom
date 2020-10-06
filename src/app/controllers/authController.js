@@ -224,6 +224,7 @@ router.post('/post_restaurantes_change_description_by_owner', async (req, res) =
 		res.status(404).send('Algo deu errado! Aguarde um momento!');
 	}
 });
+
 router.post('/post_restaurantes_check', async (req, res) => {
 	try {
 		const { id } = req.body;
@@ -252,6 +253,31 @@ router.post('/post_restaurantes_img', async (req, res) => {
 			};
 
 			await restaurante.fotos.push(pusher);
+			await restaurante.save();
+
+			res.send(await Restaurante.findOne({ id }));
+		} else {
+			res.status(400).send('Restaurante não encontrado!');
+		}
+	} catch (err) {
+		res.status(404).send('Já existe esse restaurante!');
+		console.log(err);
+	}
+});
+
+router.post('/post_restaurantes_img_oficial', async (req, res) => {
+	try {
+		const { id, img } = req.body;
+		if (await Restaurante.findOne({ id })) {
+			let restaurante = await Restaurante.findOne({ id });
+			
+			let pusher = {
+				fotos: img + restaurante.fotos
+			};
+			
+			console.log(pusher);
+
+			await Restaurante.findOneAndUpdate({id}, pusher);
 			await restaurante.save();
 
 			res.send(await Restaurante.findOne({ id }));
