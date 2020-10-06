@@ -209,17 +209,13 @@ router.post('/post_restaurantes_change_description_by_owner', async (req, res) =
 	try {
 		const { id, description} = req.body;
 		if (await Restaurante.findOne({ id })) {
-			console.log("AQUI");
-			let restaurante = await Restaurante.findOne({ id });
-
 			let pusher = {
 				description: description
 			};
 
-			await restaurante.description.findOneAndUpdate(pusher);
-			await restaurante.save();
+			await Restaurante.findOneAndUpdate(id, pusher);
 
-			res.send(rest);
+			res.send(await Restaurante.findOne(id));
 		} else {
 			res.send("Esse restaurante não está registrado no nosso servidor ainda.");
 		}
