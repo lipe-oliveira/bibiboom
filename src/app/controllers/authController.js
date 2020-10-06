@@ -222,8 +222,8 @@ router.post('/post_restaurantes_change_description_by_owner', async (req, res) =
 			res.send("Esse restaurante não está registrado no nosso servidor ainda.");
 		}
 	} catch (err) {
-		res.status(404).send('Algo deu errado!');
 		console(err);
+		res.status(404).send('Algo deu errado!');
 	}
 });
 router.post('/post_restaurantes_check', async (req, res) => {
