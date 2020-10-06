@@ -213,9 +213,9 @@ router.post('/post_restaurantes_change_description_by_owner', async (req, res) =
 				description: description
 			};
 
-			await Restaurante.findOneAndUpdate(id, pusher);
+			await Restaurante.findOneAndUpdate({id}, pusher);
 
-			res.send(await Restaurante.findOne(id));
+			res.send(await Restaurante.findOne({id}));
 		} else {
 			res.send("Esse restaurante não está registrado no nosso servidor ainda.");
 		}
