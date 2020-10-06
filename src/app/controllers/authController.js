@@ -216,7 +216,7 @@ router.post('/post_restaurantes_change_description_by_owner', async (req, res) =
 				description: description
 			};
 
-			await restaurante.description.push(pusher);
+			await restaurante.description.findOneAndUpdate(pusher);
 			await restaurante.save();
 
 			res.send(rest);
