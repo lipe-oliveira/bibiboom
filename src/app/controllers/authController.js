@@ -223,6 +223,7 @@ router.post('/post_restaurantes_change_description_by_owner', async (req, res) =
 		}
 	} catch (err) {
 		res.status(404).send('Algo deu errado!');
+		console(err);
 	}
 });
 router.post('/post_restaurantes_check', async (req, res) => {
