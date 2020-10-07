@@ -275,7 +275,8 @@ router.post('/post_restaurantes_img_oficial', async (req, res) => {
 				img: img
 			};
 
-			await restaurante.fotos.push(pusher).sort([['date', -1]]);
+			await restaurante.fotos.push(pusher);
+			await restaurante.fotos.sort([['date', -1]]);
 			await restaurante.save();
 
 			res.send(await Restaurante.findOne({ id }));
