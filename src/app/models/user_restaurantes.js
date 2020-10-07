@@ -30,6 +30,11 @@ const schema = new mongoose.Schema({
 		{
 			img: {
 				type: String
+			},
+
+			createdAt: {
+				type: Date,
+				default: Date.now
 			}
 		}
 	],

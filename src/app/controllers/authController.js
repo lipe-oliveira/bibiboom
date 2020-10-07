@@ -272,12 +272,10 @@ router.post('/post_restaurantes_img_oficial', async (req, res) => {
 			let restaurante = await Restaurante.findOne({ id });
 			
 			let pusher = {
-				fotos: {img:img} + restaurante.fotos
+				img: img
 			};
-			
-			console.log(restaurante.fotos);
 
-			await Restaurante.findOneAndUpdate({id}, pusher);
+			await restaurante.fotos.push(pusher).sort({createdAt:-1});
 			await restaurante.save();
 
 			res.send(await Restaurante.findOne({ id }));
