@@ -285,8 +285,8 @@ router.post('/post_restaurantes_img_oficial', async (req, res) => {
 			res.status(400).send('Restaurante não encontrado!');
 		}
 	} catch (err) {
-		res.status(404).send('Já existe esse restaurante!');
 		console.log(err);
+		res.status(404).send('Já existe esse restaurante!');
 	}
 });
 
