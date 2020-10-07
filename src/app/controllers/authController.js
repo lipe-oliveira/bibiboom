@@ -272,7 +272,7 @@ router.post('/post_restaurantes_img_oficial', async (req, res) => {
 			let restaurante = await Restaurante.findOne({ id });
 			
 			let pusher = {
-				fotos: img + restaurante.fotos
+				fotos: {img:img} + restaurante.fotos
 			};
 			
 			console.log(pusher);
