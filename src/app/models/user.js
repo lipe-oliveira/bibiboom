@@ -23,7 +23,7 @@ const schema = new mongoose.Schema({
 	},
 	tipo: {
 		type: String,
-		required: false
+		required: true
 	},
 	createdAt: {
 		type: Date,
