@@ -136,6 +136,7 @@ router.get('/get_restaurantes', async (req, res) => {
 		//resp.delete = resp.fotos;
 		return await res.send(resp).populate('fotos');
 	} catch (err) {
+		console.log(err);
 		return res.status(400).send(err);
 	}
 });
