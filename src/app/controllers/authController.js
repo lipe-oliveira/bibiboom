@@ -132,9 +132,9 @@ router.post('/feed', async (req, res) => {
 
 router.get('/get_restaurantes', async (req, res) => {
 	try {
-		const resp = await Restaurante.find({}).populate('ratings.user');
+		const resp = await Restaurante.find({}).populate('ratings.user').populate('fotos');
 		//resp.delete = resp.fotos;
-		return await res.send(resp.populate('fotos'));
+		return await res.send(resp);
 	} catch (err) {
 		console.log(err);
 		return res.status(400).send(err);
