@@ -134,7 +134,7 @@ router.get('/get_restaurantes', async (req, res) => {
 	try {
 		const resp = await Restaurante.find({}).populate('ratings.user');
 		resp.delete = resp.fotos;
-		res.send(resp).populate('fotos');
+		return res.send(resp).populate('fotos');
 	} catch (err) {
 		res.status(400).send(err);
 	}
