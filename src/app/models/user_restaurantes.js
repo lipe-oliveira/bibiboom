@@ -3,7 +3,17 @@ let mongoose = require('../../database/index');
 const schema = new mongoose.Schema({
 	nome: {
 		type: String,
-		required: true
+		required: false
+	},
+	dono: {
+		usuario:{
+			type: String,
+			required: false
+		},
+		senha: {
+			type: String,
+			required: false
+		},
 	},
 	description: {
 		type: String,
@@ -11,7 +21,7 @@ const schema = new mongoose.Schema({
 	},
 	latlng: {
 		type: String,
-		required: true
+		required: false
 	},
 	descript: [
 		{
@@ -24,7 +34,7 @@ const schema = new mongoose.Schema({
 	],
 	id: {
 		type: String,
-		required: true
+		required: false
 	},
 	fotos: [
 		{

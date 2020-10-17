@@ -206,6 +206,71 @@ router.post('/post_restaurantes', async (req, res) => {
 	}
 });
 
+router.post('/post_restaurantes_register', async (req, res) => {
+	try {
+		const { usuario, senha } = req.body;
+		if (await Restaurante.create(req.body)) {
+			const { ratings, descript } = req.body;
+			let restaurante = await Restaurante.findOne({ id });
+
+			if(!restaurante.toString().includes(descript)){
+				if(descript != undefined){
+					let pusher = {
+						desc: descript.toString()
+					};
+					console.log(pusher);
+
+					await restaurante.descript.push(pusher);
+					await restaurante.save();
+				}
+				
+			}	
+		
+			let split = ratings.split(",");
+			let pusherr = {
+				user: split[0],
+				rate: split[1],
+				description: split[2]
+			};
+
+			console.log(pusherr);
+
+			await restaurante.ratings.push(pusherr);
+			await restaurante.save();
+
+			console.log("OIOIOI");
+			let rest = await Restaurante.findOne({ id });
+			rest.fotos = "";
+			res.send(rest);
+		} else {
+			const { ratings, descript} = req.body;
+
+			delete req.body.ratings;
+			delete req.body.descript;
+
+			console.log("Corpo2: " + req.body);
+
+			await Restaurante.create(req.body);
+			
+			// let pusher = {
+			// 	desc: descript
+			// };
+
+			// await restaurante.descript.push(pusher);
+			// await restaurante.save();
+			
+			let rest = await Restaurante.findOne({ id });
+			res.fotos = "";
+
+			res.send(rest);
+		}
+	} catch (err) {
+		res.status(404).send('Já existe esse restaurante!');
+		console.log("Corpo3: " + err);
+	}
+});
+
+
 router.post('/post_restaurantes_change_description_by_owner', async (req, res) => {
 	try {
 		const { id, description} = req.body;
