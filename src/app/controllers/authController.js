@@ -212,6 +212,7 @@ router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 		restaurantes_map = {};
 
 		Restaurante.find({}).then(restaurantes => {
+			console.log(restaurantes);
 			restaurantes.forEach((rest => {
 				if(descript in rest.descript){
 					console.log(rest);
