@@ -81,11 +81,13 @@ router.post('/register', async (req, res) => {
 		}
 
 		const user = await User.create(req.body);
+		console.log(user);
 		user.password = undefined;
 
 		return res.send({ user });
 		//return res.send({ user, token: generateToken({ id: user.id }) });
 	} catch (err) {
+		console.log(err);
 		return res.status(400).send({ error: 'Falha de registro!' });
 	}
 });
