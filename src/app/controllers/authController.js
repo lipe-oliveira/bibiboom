@@ -215,11 +215,12 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 			let restaurante = await Restaurante.findOne({ id });
 		
 			let pusher = {
-				usuario: usuario,
-				senha: senha
+				usuario,
+				senha
+				
 			};
 
-			await restaurante.dono.push({pusher});
+			await restaurante.dono.push(pusher);
 			await restaurante.save();
 
 			let rest = await Restaurante.findOne({ id });
