@@ -214,14 +214,14 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 		if (await Restaurante.findOne({ id })) {
 			let restaurante = await Restaurante.findOne({ id });
 		
-			let pusher = {
+			let dono = {
 				usuario,
 				senha
 				
 			};
 
-			await restaurante.dono.push(pusher);
-			await restaurante.save();
+			await Restaurante.findOneAndUpdate({id}, dono);
+
 
 			let rest = await Restaurante.findOne({ id });
 			rest.fotos = "";
