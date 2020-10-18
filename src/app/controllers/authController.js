@@ -218,6 +218,9 @@ router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 					restaurantes_map[descript.id] = rest;
 				}
 			}));
+		})
+		.catch(ex => {
+			console.log(ex);
 		});
 	} catch (err) {
 		console.log("Corpo3: " + err);
