@@ -209,7 +209,7 @@ router.post('/post_restaurantes', async (req, res) => {
 router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 	try {
 		const { descript } = req.body;
-		if (await Restaurante.findOne(descript)) {
+		if (await Restaurante.findOne({descript})) {
 			let restaurante = await Restaurante.findOne({ descript });
 			console.log(restaurante);
 			res.send(rest);
@@ -218,7 +218,7 @@ router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 		}
 	} catch (err) {
 		console.log("Corpo3: " + err);
-		res.status(404).send('Já existe esse restaurante!');
+		res.status(404).send('Algo deu errado!');
 	}
 });
 
