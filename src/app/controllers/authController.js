@@ -208,6 +208,34 @@ router.post('/post_restaurantes', async (req, res) => {
 	}
 });
 
+router.post('/post_restaurantes_dono', async (req, res) => {
+	try {
+		const { id, usuario, senha } = req.body;
+		if (await Restaurante.findOne({ id })) {
+			let restaurante = await Restaurante.findOne({ id });
+		
+			let pusher = {
+				usuario: usuario,
+				senha: senha
+			};
+
+			console.log(pusher);
+
+			await restaurante.dono.push(pusher);
+			await restaurante.save();
+
+			let rest = await Restaurante.findOne({ id });
+			rest.fotos = "";
+			res.send(rest);
+		} else {
+			res.status(404).send("Estabelecimento não registrado nos servidores seedy.");
+		}
+	} catch (err) {
+		res.status(404).send('Já existe esse restaurante!');
+		console.log("Corpo3: " + err);
+	}
+});
+
 router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 	try {
 		const { descript } = req.body;
