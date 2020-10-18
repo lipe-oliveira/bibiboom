@@ -217,7 +217,7 @@ router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 					console.log(desc.desc);
 					if(descript == desc.desc){
 						console.log("Têm.");
-						restaurantes_map.push(desc);
+						restaurantes_map.push(restaurantes);
 					}
 				}));
 			}));
