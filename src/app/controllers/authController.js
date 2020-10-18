@@ -220,7 +220,7 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 				
 			};
 
-			await Restaurante.findOneAndUpdate({id}, dono);
+			await Restaurante.dono.findOneAndUpdate({id},dono);
 
 
 			let rest = await Restaurante.findOne({ id });
