@@ -206,6 +206,23 @@ router.post('/post_restaurantes', async (req, res) => {
 	}
 });
 
+router.post('/post_restaurantes_get_by_descript', async (req, res) => {
+	try {
+		const { tipo } = req.body;
+		if (await Restaurante.findOne({ tipo })) {
+			let restaurante = await Restaurante.findOne({ tipo });
+			console.log(restaurante);
+			res.send(rest);
+		} else {
+			res.send("Não foi possível encontrar estabelecimentos desse tipo no momento.");
+		}
+	} catch (err) {
+		res.status(404).send('Já existe esse restaurante!');
+		console.log("Corpo3: " + err);
+	}
+});
+
+
 router.post('/post_restaurantes_register', async (req, res) => {
 	try {
 		const { usuario, senha } = req.body;
