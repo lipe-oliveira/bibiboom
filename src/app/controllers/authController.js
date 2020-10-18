@@ -209,17 +209,16 @@ router.post('/post_restaurantes', async (req, res) => {
 router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 	try {
 		const { descript } = req.body;
-		restaurantes_map = {};
+		restaurantes_map = [];
 
 		Restaurante.find({}).then(restaurantes => {
 			restaurantes.forEach((rest => {
-				console.log(rest.descript.get('desc'));
-				if(rest.descript.desc.includes(descript)){
-					restaurantes_map[descript.id] = rest;
-				}
-				else{
-					console.log("Não é da categoria.");
-				}
+				rest.forEach((desc => {
+					if(desc.includes(descript)){
+						console.log("Têm.");
+						restaurantes_map.push(desc);
+					}
+				}));
 			}));
 		})
 		.catch(ex => {
