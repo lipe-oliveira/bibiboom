@@ -220,8 +220,9 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 				
 			};
 
-			await Restaurante.dono.findOneAndUpdate({id},dono);
-
+			restaurante.push({dono});
+			console.log(restaurante);
+			restaurante.save();
 
 			let rest = await Restaurante.findOne({ id });
 			rest.fotos = "";
