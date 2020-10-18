@@ -209,13 +209,16 @@ router.post('/post_restaurantes', async (req, res) => {
 router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 	try {
 		const { descript } = req.body;
-		if (await Restaurante.findOne({descript})) {
-			let restaurante = await Restaurante.findOne({ descript });
-			console.log(restaurante);
-			res.send(rest);
-		} else {
-			res.send("Não foi possível encontrar estabelecimentos desse tipo no momento.");
-		}
+		restaurantes_map = {};
+
+		Restaurante.find({}).then(restaurantes => {
+			restaurantes.forEach((rest => {
+				if(descript in rest.descript){
+					console.log(rest);
+					restaurantes_map[descript.id] = rest;
+				}
+			}));
+		});
 	} catch (err) {
 		console.log("Corpo3: " + err);
 		res.status(404).send('Algo deu errado!');
