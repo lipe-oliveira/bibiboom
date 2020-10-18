@@ -219,14 +219,13 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 				senha: senha
 			};
 
-			console.log(restaurante.dono);
-
-			await restaurante.dono.push(pusher);
+			await restaurante.dono.push({pusher});
 			await restaurante.save();
 
 			let rest = await Restaurante.findOne({ id });
 			rest.fotos = "";
 			return res.send(rest);
+
 		} else {
 			return res.status(404).send("Estabelecimento não registrado nos servidores seedy.");
 		}
