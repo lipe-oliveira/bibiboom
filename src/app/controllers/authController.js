@@ -209,7 +209,7 @@ router.post('/post_restaurantes', async (req, res) => {
 router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 	try {
 		const { tipo } = req.body;
-		if (await Restaurante.findOne({ tipo })) {
+		if (await Restaurante.findOne(descript.tipo)) {
 			let restaurante = await Restaurante.findOne({ tipo });
 			console.log(restaurante);
 			res.send(rest);
