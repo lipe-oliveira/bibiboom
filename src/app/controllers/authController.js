@@ -212,8 +212,8 @@ router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 		restaurantes_map = [];
 
 		await Restaurante.find({}).then(restaurantes => {
-			await restaurantes.forEach((rest => {
-				await rest.descript.forEach((desc => {
+			 restaurantes.forEach((rest => {
+				 rest.descript.forEach((desc => {
 					console.log(desc.desc);
 					if(descript == desc.desc){
 						console.log("Têm.");
