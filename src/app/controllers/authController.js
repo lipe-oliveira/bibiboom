@@ -213,17 +213,19 @@ router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 
 		Restaurante.find({}).then(restaurantes => {
 			restaurantes.forEach((rest => {
-				console.log(rest);
-
-				if(descript in rest.descript){
-					console.log(rest);
+				if(rest.descript.includes(descript)){
 					restaurantes_map[descript.id] = rest;
+				}
+				else{
+					console.log("Não é da categoria.");
 				}
 			}));
 		})
 		.catch(ex => {
 			console.log(ex);
 		});
+
+		return res.send(restaurantes_map);
 	} catch (err) {
 		console.log("Corpo3: " + err);
 		res.status(404).send('Algo deu errado!');
