@@ -246,8 +246,9 @@ router.post('/post_restaurantes_dono_login', async (req, res) => {
 	try {
 		const { usuario, senha } = req.body;
 		if (await Restaurante.findOne({ usuario })) {
-			let restaurante = Restaurante.findOne({senha});
-			return res.send(restaurante);
+			if(await Restaurante.findOne({senha})){
+				return res.send(restaurante);
+			};
 
 		} else {
 			return res.status(404).send("Usuário inválido.");
