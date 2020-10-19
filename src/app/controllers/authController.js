@@ -370,17 +370,17 @@ router.post('/post_restaurantes_check', async (req, res) => {
 router.post('/post_restaurantes_img', async (req, res) => {
 	try {
 		const { id, img } = req.body;
-		console.log(img);
 		if (await Restaurante.findOne({ id })) {
 			let restaurante = await Restaurante.findOne({ id });
-			console.log(restaurante);
 
 			let pusher = {
-				img: img
+				img
 			};
 
 			await restaurante.fotos.push(pusher);
 			await restaurante.save();
+
+			console.log(restaurante);
 
 			res.send(await Restaurante.findOne({ id }));
 		} else {
