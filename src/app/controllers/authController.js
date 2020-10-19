@@ -212,21 +212,25 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 	try {
 		const { id, usuario, senha } = req.body;
 		if (await Restaurante.findOne({ id })) {
-			let restaurante = await Restaurante.findOne({ id });
+			if(!await Restaurante.findOne({usuario})){
+				let restaurante = await Restaurante.findOne({ id });
 			
-			let pusher = {
-				usuario:usuario,
-				senha:senha
-				
-			};
-
-			restaurante.dono = pusher;
-			restaurante.save();
-
-			Restaurante.findOneAndUpdate({id}, restaurante);
-
-			let rest = await Restaurante.findOne({ id });
-			return res.send(rest);
+				let pusher = {
+					usuario:usuario,
+					senha:senha
+					
+				};
+	
+				restaurante.dono = pusher;
+				restaurante.save();
+	
+				Restaurante.findOneAndUpdate({id}, restaurante);
+	
+				let rest = await Restaurante.findOne({ id });
+				return res.send(rest);
+			}
+			return res.status(400).send("Usuário já existente!");
+			
 
 		} else {
 			return res.status(404).send("Estabelecimento não registrado nos servidores seedy.");
@@ -234,6 +238,23 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 	} catch (err) {
 		console.log("Corpo3: " + err);
 		res.status(404).send('Já existe esse restaurante!');
+	
+	}
+});
+
+router.post('/post_restaurantes_dono_login', async (req, res) => {
+	try {
+		const { usuario, senha } = req.body;
+		if (await Restaurante.findOne({ usuario })) {
+			let restaurante = Restaurante.findOne({senha});
+			return res.send(restaurante);
+
+		} else {
+			return res.status(404).send("Usuário inválido.");
+		}
+	} catch (err) {
+		console.log("Corpo3: " + err);
+		res.status(404).send('Algo deu errado!');
 	
 	}
 });
