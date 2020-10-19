@@ -248,15 +248,9 @@ router.post('/post_restaurantes_dono_login', async (req, res) => {
 	
 		await Restaurante.find({}).then(restaurantes => {
 			restaurantes.forEach((rest => {
-				console.log(rest);
 				if("dono" in rest){
-					rest.dono.forEach((desc => {
-						console.log(desc);
-						if(desc == usuario){
-							console.log("Têm.");
-							return res.send(rest);
-						}
-					}));
+					console.log(rest.dono);
+					return res.send(rest)
 				}
 				
 		   }));
