@@ -245,16 +245,25 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 router.post('/post_restaurantes_dono_login', async (req, res) => {
 	try {
 		const { usuario, senha } = req.body;
-		restaurantes_map = [];
-		let pusher = {dono: {
-			usuario,
-			senha
-		}}
-		if(await Restaurante.findOne({pusher})){
-			return res.send(Restaurante.findOne({pusher}));
+	
+		await Restaurante.find({}).then(restaurantes => {
+			restaurantes.forEach((rest => {
+				if(rest.includes("dono")){
+					rest.dono.forEach((desc => {
+						console.log(desc);
+						if(desc == usuario){
+							console.log("Têm.");
+							return res.send(rest);
+						}
+					}));
+				}
+				
+		   }));
+	   })
+	   .catch(ex => {
+		   console.log(ex);
+	   });
 
-		}
-		return res.status(400).send("ERRO");
 	} catch (err) {
 		console.log("Corpo3: " + err);
 		res.status(404).send('Algo deu errado!');
