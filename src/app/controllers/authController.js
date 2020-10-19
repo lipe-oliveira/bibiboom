@@ -382,6 +382,8 @@ router.post('/post_restaurantes_img', async (req, res) => {
 
 			console.log(restaurante);
 
+			await Restaurante.findOneAndUpdate({id}, restaurante);
+
 			res.send(await Restaurante.findOne({ id }));
 		} else {
 			res.status(400).send('Restaurante não encontrado!');
