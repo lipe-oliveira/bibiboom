@@ -248,12 +248,15 @@ router.post('/post_restaurantes_dono_login', async (req, res) => {
 		let verify;
 		await Restaurante.find({}).then(restaurantes => {
 			 restaurantes.forEach((rest => {
-				 rest.dono.forEach((desc => {
-					if(desc == usuario){
-						console.log("Têm.");
-						verify = rest;
-					}
-				}));
+				 if(rest.includes("dono")){
+					rest.dono.forEach((desc => {
+						if(desc == usuario){
+							console.log("Têm.");
+							verify = rest;
+						}
+					}));
+				 }
+				 
 			}));
 		})
 		.catch(ex => {
