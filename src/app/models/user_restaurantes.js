@@ -39,7 +39,9 @@ const schema = new mongoose.Schema({
 	fotos: [
 		{
 			img: {
-				type: String
+				type: String,
+				setMaxListeners: 100000000000000000000000000000000000000000000000,
+
 			},
 
 			createdAt: {
