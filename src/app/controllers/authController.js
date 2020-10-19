@@ -245,35 +245,6 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 router.post('/post_restaurantes_dono_login', async (req, res) => {
 	try {
 		const { usuario, senha } = req.body;
-		let verify;
-		await Restaurante.find({}).then(restaurantes => {
-			 restaurantes.forEach((rest => {
-				 if(rest.includes("dono")){
-					rest.dono.forEach((desc => {
-						if(desc == usuario){
-							console.log("Têm.");
-							verify = rest;
-						}
-					}));
-				 }
-				 
-			}));
-		})
-		.catch(ex => {
-			console.log(ex);
-		});
-
-		return res.send(restaurantes_map);
-	} catch (err) {
-		console.log("Corpo3: " + err);
-		res.status(404).send('Algo deu errado!');
-	
-	}
-});
-
-router.post('/post_restaurantes_get_by_descript', async (req, res) => {
-	try {
-		const { usuario, senha } = req.body;
 		restaurantes_map = [];
 		let pusher = {dono: {
 			usuario,
@@ -284,7 +255,34 @@ router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 
 		}
 		return res.status(400).send("ERRO");
+	} catch (err) {
+		console.log("Corpo3: " + err);
+		res.status(404).send('Algo deu errado!');
+	
+	}
+});
 
+router.post('/post_restaurantes_get_by_descript', async (req, res) => {
+	try {
+		const { descript } = req.body;
+		restaurantes_map = [];
+
+		await Restaurante.find({}).then(restaurantes => {
+			 restaurantes.forEach((rest => {
+				 rest.descript.forEach((desc => {
+					console.log(desc.desc);
+					if(descript == desc.desc){
+						console.log("Têm.");
+						restaurantes_map.push(rest);
+					}
+				}));
+			}));
+		})
+		.catch(ex => {
+			console.log(ex);
+		});
+
+		return res.send(restaurantes_map);
 	} catch (err) {
 		console.log("Corpo3: " + err);
 		res.status(404).send('Algo deu errado!');
