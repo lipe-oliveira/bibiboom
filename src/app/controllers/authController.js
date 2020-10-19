@@ -179,7 +179,7 @@ router.post('/post_restaurantes', async (req, res) => {
 			console.log("OIOIOI");
 			let rest = await Restaurante.findOne({ id });
 			rest.fotos = "";
-			res.send(rest.populate("fotos"));
+			res.send(rest);
 		} else {
 			const { ratings, descript} = req.body;
 
@@ -382,7 +382,7 @@ router.post('/post_restaurantes_img', async (req, res) => {
 
 			await Restaurante.findOneAndUpdate({id}, restaurante);
 
-			res.send(await (await Restaurante.findOne({ id })).populate("fotos"));
+			res.send(await (await Restaurante.findOne({ id })).populated("fotos.img"));
 		} else {
 			res.status(400).send('Restaurante não encontrado!');
 		}
