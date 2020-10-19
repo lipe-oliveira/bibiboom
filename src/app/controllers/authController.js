@@ -245,14 +245,22 @@ router.post('/post_restaurantes_dono', async (req, res) => {
 router.post('/post_restaurantes_dono_login', async (req, res) => {
 	try {
 		const { usuario, senha } = req.body;
-		if (await Restaurante.findOne({ usuario })) {
-			if(await Restaurante.findOne({senha})){
-				return res.send(restaurante);
-			};
+		let verify;
+		await Restaurante.find({}).then(restaurantes => {
+			 restaurantes.forEach((rest => {
+				 rest.dono.forEach((desc => {
+					if(desc == usuario){
+						console.log("Têm.");
+						verify = rest;
+					}
+				}));
+			}));
+		})
+		.catch(ex => {
+			console.log(ex);
+		});
 
-		} else {
-			return res.status(404).send("Usuário inválido.");
-		}
+		return res.send(restaurantes_map);
 	} catch (err) {
 		console.log("Corpo3: " + err);
 		res.status(404).send('Algo deu errado!');
