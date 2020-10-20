@@ -102,6 +102,7 @@ router.post('/register_change_restricao', async (req, res) => {
 			user.tipo = tipo;
 			user.save();
 
+			console.log(user);
 			await User.findOneAndUpdate({email}, user);
 	
 			return res.send(await User.findOne({ email }));		}
