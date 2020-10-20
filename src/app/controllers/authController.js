@@ -293,8 +293,8 @@ router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 		const { descript } = req.body;
 		restaurantes_map = [];
 
-		await Restaurante.find({}).then(restaurantes => {
-			 restaurantes.populate('ratings.user').forEach((rest => {
+		await Restaurante.find({}).populate('ratings.user').then(restaurantes => {
+			 restaurantes.forEach((rest => {
 				 rest.descript.forEach((desc => {
 					console.log(desc.desc);
 					if(descript == desc.desc){
