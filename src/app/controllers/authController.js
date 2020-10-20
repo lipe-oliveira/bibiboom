@@ -92,6 +92,27 @@ router.post('/register', async (req, res) => {
 	}
 });
 
+router.post('/register_change_restricao', async (req, res) => {
+	const { email, tipo } = req.body;
+
+	try {
+		if (!await User.findOne({ email })) {
+			return res.status(400).send({ error: 'Registro não encontrado!' });
+		}
+
+		const user = await User.findOne({ email });
+
+		user.tipo.push = tipo;
+		user.save();
+
+		return res.send(await User.findOne({ email }));
+		//return res.send({ user, token: generateToken({ id: user.id }) });
+	} catch (err) {
+		console.log(err);
+		return res.status(400).send({ error: 'Falha de registro!' });
+	}
+});
+
 router.post('/authenticate', async (req, res) => {
 	try {
 		console.log('/authenticate');
@@ -250,9 +271,8 @@ router.post('/post_restaurantes_dono_login', async (req, res) => {
 			restaurantes.forEach((rest => {
 				if("dono" in rest){
 					console.log(rest.dono);
-					return res.send(rest)
+					return res.send(rest);
 				}
-				
 		   }));
 	   })
 	   .catch(ex => {
@@ -292,7 +312,6 @@ router.post('/post_restaurantes_get_by_descript', async (req, res) => {
 		res.status(404).send('Algo deu errado!');
 	}
 });
-
 
 router.post('/post_restaurantes_register', async (req, res) => {
 	try {
@@ -357,7 +376,6 @@ router.post('/post_restaurantes_register', async (req, res) => {
 		console.log("Corpo3: " + err);
 	}
 });
-
 
 router.post('/post_restaurantes_change_description_by_owner', async (req, res) => {
 	try {
@@ -459,7 +477,6 @@ router.post('/post_restaurantes_get_img', async (req, res) => {
 		console.log(err);
 	}
 });
-
 
 router.post('/post_image', async (req, res) => {
 	try {
