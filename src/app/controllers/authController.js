@@ -100,10 +100,12 @@ router.post('/register_change_restricao', async (req, res) => {
 			return res.status(400).send({ error: 'Registro não encontrado!' });
 		}
 
+		console.log(tipo);
 		const user = await User.findOne({ email });
 
 		user.tipo.push = tipo;
 		user.save();
+		console.log(user);
 
 		return res.send(await User.findOne({ email }));
 		//return res.send({ user, token: generateToken({ id: user.id }) });
