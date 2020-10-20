@@ -100,7 +100,7 @@ router.post('/register_change_restricao', async (req, res) => {
 			console.log(tipo);
 			const user = await User.findOne({ email });
 	
-			user.tipo.push = tipo;
+			user.tipo.push(tipo);
 			user.save();
 			console.log(user);
 	
