@@ -128,8 +128,13 @@ router.post('/register_salvar', async (req, res) => {
 				const user = await User.findOne({ email });
 				const restaurante = await Restaurante.findOne({ id });
 
-				user.salvos = restaurante;
-				user.save();
+				await user.salvos.forEach((saved) => {
+					if(saved == id){
+						return res.status(400).send("Esse restaurante já está salvo!");
+					}
+				});
+				await user.salvos.push(restaurante);
+				await user.save();
 	
 				console.log(user);
 				await User.findOneAndUpdate({email}, user);
