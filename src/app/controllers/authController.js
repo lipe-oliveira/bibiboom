@@ -68,7 +68,7 @@ router.get('/get_feeds/:id', async (req, res) => {
 router.get('/get_users', async (req, res) => {
 	try {
 		const user = await User.find();
-		return res.send({ user });
+		return res.send({ user }).populate("salvos");
 	} catch (err) {}
 });
 
