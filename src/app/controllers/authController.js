@@ -119,6 +119,37 @@ router.post('/register_change_restricao', async (req, res) => {
 	}
 });
 
+router.post('/register_salvar', async (req, res) => {
+	const { email, id } = req.body;
+
+	try {
+		if (await User.findOne({ email })) {
+			if(await Restaurante.findOne({id})){
+				const user = await User.findOne({ email });
+				const restaurante = await Restaurante.findOne({ id });
+
+				user.salvos = restaurante;
+				user.save();
+	
+				console.log(user);
+				await User.findOneAndUpdate({email}, user);
+		
+				return res.send(await User.findOne({ email }));	
+			}
+		}
+
+		else{
+			return res.send("Usuário não encontrado!")
+		}
+
+		
+		//return res.send({ user, token: generateToken({ id: user.id }) });
+	} catch (err) {
+		console.log(err);
+		return res.status(400).send({ error: 'Falha de registro!' });
+	}
+});
+
 router.post('/authenticate', async (req, res) => {
 	try {
 		console.log('/authenticate');

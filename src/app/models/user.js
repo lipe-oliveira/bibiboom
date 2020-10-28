@@ -25,6 +25,12 @@ const schema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	salvos:[{
+		type: mongoose.Schema.Types.ObjectId,
+		ref: 'restaurantes',
+		required: false
+	}
+	],
 	createdAt: {
 		type: Date,
 		default: Date.now
