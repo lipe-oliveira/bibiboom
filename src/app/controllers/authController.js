@@ -108,7 +108,7 @@ router.post('/register_change_restricao', async (req, res) => {
 			return res.send(await User.findOne({ email }));		}
 
 		else{
-			return res.send("Usuário não encontrado!")
+			return res.send("Usuário não foi encontrado!")
 		}
 
 		
