@@ -135,11 +135,11 @@ router.post('/register_salvar', async (req, res) => {
 					user.save();
 		
 					console.log(user);
-					await User.findOneAndUpdate({email}, user);
-			
-					return res.send(await User.findOne({ email }));	
+						
 				});
-
+				await User.findOneAndUpdate({email}, user);
+			
+				return res.send(await User.findOne({ email }));
 				
 			}
 		}
