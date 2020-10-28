@@ -125,21 +125,22 @@ router.post('/register_salvar', async (req, res) => {
 	try {
 		if (await User.findOne({ email })) {
 			if(await Restaurante.findOne({id})){
-				const user = await User.findOne({ email });
-				const restaurante = await Restaurante.findOne({ id });
-
-				await user.salvos.forEach((saved) => {
-					if(saved == id){
-						return res.status(400).send("Esse restaurante já está salvo!");
-					}
-				});
-				await user.salvos.push(restaurante);
-				await user.save();
-	
-				console.log(user);
-				await User.findOneAndUpdate({email}, user);
+				await User.findOne({ email }).then(user => {
+					user.salvos.forEach((saved) => {
+						if(saved == id){
+							return res.status(400).send("Esse restaurante já está salvo!");
+						}
+					});
+					await user.salvos.push(restaurante);
+					await user.save();
 		
-				return res.send(await User.findOne({ email }));	
+					console.log(user);
+					await User.findOneAndUpdate({email}, user);
+			
+					return res.send(await User.findOne({ email }));	
+				});
+
+				
 			}
 		}
 
