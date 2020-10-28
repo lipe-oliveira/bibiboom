@@ -131,8 +131,8 @@ router.post('/register_salvar', async (req, res) => {
 							return res.status(400).send("Esse restaurante está salvo!");
 						}
 					});
-					await user.salvos.push(restaurante);
-					await user.save();
+					user.salvos.push(restaurante);
+					user.save();
 		
 					console.log(user);
 					await User.findOneAndUpdate({email}, user);
