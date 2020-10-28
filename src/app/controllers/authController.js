@@ -121,6 +121,7 @@ router.post('/register_change_restricao', async (req, res) => {
 
 router.post('/register_salvar', async (req, res) => {
 	const { email, id } = req.body;
+	let user_main;
 
 	try {
 		if (await User.findOne({ email })) {
@@ -133,11 +134,13 @@ router.post('/register_salvar', async (req, res) => {
 					});
 					user.salvos.push(id);
 					user.save();
+
+					user_main = user;
 		
 					console.log(user);
 						
 				});
-				await User.findOneAndUpdate({email}, user);
+				await User.findOneAndUpdate({email}, user_main);
 			
 				return res.send(await User.findOne({ email }));
 				
