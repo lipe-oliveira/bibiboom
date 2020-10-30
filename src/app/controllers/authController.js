@@ -127,7 +127,6 @@ router.post('/register_salvar', async (req, res) => {
 	try {		
 		if (await User.findOne({ email })) {
 			if(await Restaurante.findOne({id})){
-				console.log("Esse restaurante está achado!");
 
 				const restaurante = await Restaurante.findOne({id});
 				 user_main = await User.findOne({email});
@@ -143,10 +142,10 @@ router.post('/register_salvar', async (req, res) => {
 				});
 
 				if(user_main != " "){
-					console.log("Diferente!");
 
 					await user_main.salvos.push(id_main);
 					await user_main.save();
+					console.log(user_main);
 					
 					await User.findOneAndUpdate({email}, user_main);
 				
