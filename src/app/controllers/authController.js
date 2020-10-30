@@ -129,8 +129,8 @@ router.post('/register_salvar', async (req, res) => {
 				let id_main = restaurante._id;
 				await User.findOne({ email }).then(async user => {
 					await user.salvos.forEach((saved) => {
-						console.log(saved + " " + id_main);
-						if(saved == id_main){
+						if(saved.toString().includes(id_main.toString())){
+							console.log(saved + " " + id_main);
 							return res.status(400).send("Esse restaurante está salvo!");
 						}
 					});
