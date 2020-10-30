@@ -120,14 +120,15 @@ router.post('/register_change_restricao', async (req, res) => {
 
 router.post('/register_salvar', async (req, res) => {
 	const { email, id } = req.body;
-
+	console.log("ID " + id);
 	try {		
 		if (await User.findOne({ email })) {
 			if(await Restaurante.findOne({id})){
 
-				const restaurante = await Restaurante.findOne({id});
+				const { id }  = await Restaurante.findOne({id});
+				console.log("ID " + id);
+
 				let user_main = await User.findOne({email});
-				let id_main = restaurante._id;
 
 				/*
 				await User.findOne({ email }).then(user => {
@@ -142,7 +143,7 @@ router.post('/register_salvar', async (req, res) => {
 
 				if(user_main.toString() != "a"){
 					pusher = {
-						estabelecimento: id_main
+						estabelecimento: id
 					};
 					console.log(pusher);
 
