@@ -149,9 +149,10 @@ router.post('/register_salvar', async (req, res) => {
 					await user_main.salvos.push(pusher);
 					await user_main.save();
 					
-					
 					await User.findOneAndUpdate({email}, user_main);
 					const final = await User.findOne({ email }).populate("salvos.estabelecimento");
+					console.log(final);
+					
 					return res.send(final);
 				}
 				
