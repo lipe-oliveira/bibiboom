@@ -68,8 +68,7 @@ router.get('/get_users', async (req, res) => {
 	try {
 		return res.send(await User.find({ })).populate('salvos.estabelecimento');
 	} catch (err) {
-		return res.status(400).send(err);
-
+		console.log(err);
 	}
 });
 
