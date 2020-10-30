@@ -146,7 +146,7 @@ router.post('/register_salvar', async (req, res) => {
 					};
 					console.log(estabelecimento);
 
-					await user_main.salvos.push(pusher);
+					await user_main.salvos.push(estabelecimento);
 					await user_main.save();
 					
 					await User.findOneAndUpdate({email}, user_main);
