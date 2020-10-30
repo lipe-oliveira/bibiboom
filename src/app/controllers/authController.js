@@ -66,7 +66,7 @@ router.get('/get_feeds/:id', async (req, res) => {
 
 router.get('/get_users', async (req, res) => {
 	try {
-		return res.send(await User.find({})).populate('salvos.estabelecimento');
+		return res.send(await User.find({ })).populate('salvos.estabelecimento');
 	} catch (err) {}
 });
 
@@ -141,7 +141,7 @@ router.post('/register_salvar', async (req, res) => {
 				*/
 
 				if(user_main.toString() != "a"){
-					pusher = {
+					estabelecimento = {
 						estabelecimento: _id
 					};
 					console.log(pusher);
@@ -152,7 +152,7 @@ router.post('/register_salvar', async (req, res) => {
 					await User.findOneAndUpdate({email}, user_main);
 					const final = await User.findOne({ email }).populate("salvos.estabelecimento");
 					console.log(final);
-					
+
 					return res.send(final);
 				}
 				
