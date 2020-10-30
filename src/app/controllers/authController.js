@@ -138,7 +138,7 @@ router.post('/register_salvar', async (req, res) => {
 						}
 					});						
 				});
-				console.log(user_main);
+				console.log(user_main.length());
 
 				if(user_main.length > 2){
 					await user_main.salvos.push(id_main);
