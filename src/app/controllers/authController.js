@@ -125,8 +125,8 @@ router.post('/register_salvar', async (req, res) => {
 		if (await User.findOne({ email })) {
 			if(await Restaurante.findOne({id})){
 
-				const { id }  = await Restaurante.findOne({id});
-				console.log("ID " + id);
+				const { _id }  = await Restaurante.findOne({id});
+				console.log("ID " + _id);
 
 				let user_main = await User.findOne({email});
 
