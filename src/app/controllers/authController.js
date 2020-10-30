@@ -140,7 +140,7 @@ router.post('/register_salvar', async (req, res) => {
 				});
 				*/
 
-				if(user_main.length > 2){
+				if(user_main.toString() != "a"){
 					pusher = {
 						estabelecimento: id_main
 					};
