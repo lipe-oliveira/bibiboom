@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const feed = require('../models/user_feeds');
 const Image = require('../models/img');
+const Image_ocult = require('../models/imgs_ocult');
 const Restaurante = require('../models/user_restaurantes');
 const Receita = require('../models/user_receitas');
 const auth = require('../../config/auth.json');
@@ -126,27 +127,26 @@ router.post('/register_salvar', async (req, res) => {
 		if (await User.findOne({ email })) {
 			if(await Restaurante.findOne({id})){
 				const restaurante = await Restaurante.findOne({id});
+				const user_main = await User.findOne({email});
 				let id_main = restaurante._id;
-				console.log("HERE: " + saved + " " + id_main);
 
-				await User.findOne({ email }).then(async user => {
-					await user.salvos.forEach((saved) => {
-
-						if(saved.toString().includes(id_main.toString())){
-							return res.status(400).send("Esse restaurante está salvo!");
+				await User.findOne({ email }).then(user => {
+					user.salvos.forEach((saved) => {
+						if(saved == id_main){
+							console.log("Esse restaurante está salvo!");
+							user_main = " ";
 						}
-					});
-					user.salvos.push(id_main);
-					user.save();
-
-					user_main = user;
-		
-					console.log(user);
-						
+					});						
 				});
-				await User.findOneAndUpdate({email}, user_main);
-			
-				return res.send(await User.findOne({ email }).populate("salvos"));
+
+				if(user_main != " "){
+					await user_main.salvos.push(id_main);
+					await user_main.save();
+					
+					await User.findOneAndUpdate({email}, user_main);
+				
+					return res.send(await User.findOne({ email }).populate("salvos"));
+				}
 				
 			}
 		}
@@ -154,6 +154,9 @@ router.post('/register_salvar', async (req, res) => {
 		else{
 			return res.send("Usuário não encontrado!")
 		}
+
+		
+		//return res.send({ user, token: generateToken({ id: user.id }) });
 	} catch (err) {
 		console.log(err);
 		return res.status(400).send({ error: 'Falha de registro!' });
