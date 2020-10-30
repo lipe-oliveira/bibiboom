@@ -120,16 +120,13 @@ router.post('/register_change_restricao', async (req, res) => {
 
 router.post('/register_salvar', async (req, res) => {
 	const { email, id } = req.body;
-	let user_main;
-
-	console.log(email + " " + id);
 
 	try {		
 		if (await User.findOne({ email })) {
 			if(await Restaurante.findOne({id})){
 
 				const restaurante = await Restaurante.findOne({id});
-				 user_main = await User.findOne({email});
+				let user_main = await User.findOne({email});
 				let id_main = restaurante._id;
 
 				await User.findOne({ email }).then(user => {
