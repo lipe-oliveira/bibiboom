@@ -122,9 +122,10 @@ router.post('/register_salvar', async (req, res) => {
 	const { email, id } = req.body;
 	let user_main;
 
-	try {
+	try {		
+		console.log("register_salvar");
+
 		if (await User.findOne({ email })) {
-			console.log("register_salvar");
 			if(await Restaurante.findOne({id})){
 				console.log("register_salvar2");
 				console.log("Esse restaurante está achado!");
@@ -160,9 +161,7 @@ router.post('/register_salvar', async (req, res) => {
 			return res.send("Usuário não encontrado!")
 		}
 
-		
-		//return res.send({ user, token: generateToken({ id: user.id }) });
-	} catch (err) {
+		} catch (err) {
 		console.log(err);
 		return res.status(400).send({ error: 'Falha de registro!' });
 	}
