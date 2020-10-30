@@ -130,7 +130,7 @@ router.post('/register_salvar', async (req, res) => {
 				await User.findOne({ email }).then(async user => {
 					await user.salvos.forEach((saved) => {
 						if(saved.toString().includes(id_main.toString())){
-							console.log(saved + " " + id_main);
+							console.log("HERE: " + saved + " " + id_main);
 							return res.status(400).send("Esse restaurante está salvo!");
 						}
 					});
@@ -152,9 +152,6 @@ router.post('/register_salvar', async (req, res) => {
 		else{
 			return res.send("Usuário não encontrado!")
 		}
-
-		
-		//return res.send({ user, token: generateToken({ id: user.id }) });
 	} catch (err) {
 		console.log(err);
 		return res.status(400).send({ error: 'Falha de registro!' });
