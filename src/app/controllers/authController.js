@@ -138,10 +138,13 @@ router.post('/register_salvar', async (req, res) => {
 						}
 					});						
 				});
-				console.log(user_main.length());
+				console.log(user_main.length);
 
 				if(user_main.length > 2){
-					await user_main.salvos.push(id_main);
+					pusher = {
+						estabelecimento: id_main
+					}
+					await user_main.salvos.push(pusher);
 					await user_main.save();
 					
 					
