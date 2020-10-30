@@ -3,7 +3,6 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const feed = require('../models/user_feeds');
 const Image = require('../models/img');
-const Image_ocult = require('../models/imgs_ocult');
 const Restaurante = require('../models/user_restaurantes');
 const Receita = require('../models/user_receitas');
 const auth = require('../../config/auth.json');
