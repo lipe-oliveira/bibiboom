@@ -130,20 +130,21 @@ router.post('/register_salvar', async (req, res) => {
 				let id_main = restaurante._id;
 
 				await User.findOne({ email }).then(user => {
-					user.salvos.forEach((saved) => {
+					user.salvos.id.forEach((saved) => {
+						console.log(saved);
 						if(saved == id_main){
 							console.log("Esse restaurante está salvo!");
 							user_main = " ";
 						}
 					});						
 				});
-				console.log(user_main);
 
 				if(user_main.length > 2){
 					await user_main.salvos.push(id_main);
 					await user_main.save();
 					
-					
+					console.log(user_main);
+
 					await User.findOneAndUpdate({email}, user_main);
 				
 					return res.send(await User.findOne({ email }).populate("salvos"));

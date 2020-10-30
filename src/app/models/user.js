@@ -25,10 +25,13 @@ const schema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
-	salvos:[{
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'restaurantes',
-		required: false
+	salvos:[
+		{
+			estabelecimento:{
+				type: mongoose.Schema.Types.ObjectId,
+				ref: 'restaurantes',
+				required: false
+			}
 	}
 	],
 	createdAt: {
