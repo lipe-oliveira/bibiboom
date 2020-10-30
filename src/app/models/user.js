@@ -39,13 +39,14 @@ const schema = new mongoose.Schema({
 		default: Date.now
 	}
 });
-
+/*
 schema.pre('save', async function (next) {
 	const hash = await bcrypt.hash(this.password, 10);
 	this.password = hash;
 
 	next();
 });
+*/
 
 const User = mongoose.model('User', schema);
 module.exports = User;
