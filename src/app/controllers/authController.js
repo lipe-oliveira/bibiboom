@@ -119,7 +119,6 @@ router.post('/register_change_restricao', async (req, res) => {
 
 router.post('/register_salvar', async (req, res) => {
 	const { email, id } = req.body;
-	console.log("ID " + id);
 	try {		
 		if (await User.findOne({ email })) {
 			if(await Restaurante.findOne({id})){
@@ -142,7 +141,7 @@ router.post('/register_salvar', async (req, res) => {
 
 				if(user_main.toString() != "a"){
 					estabelecimento = {
-						estabelecimento: id
+						estabelecimento: _id
 					};
 					console.log(estabelecimento);
 
