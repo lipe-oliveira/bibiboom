@@ -129,6 +129,7 @@ router.post('/register_salvar', async (req, res) => {
 				let user_main = await User.findOne({email});
 				let id_main = restaurante._id;
 
+				/*
 				await User.findOne({ email }).then(user => {
 					user.salvos.forEach((saved) => {
 						if(saved == id_main){
@@ -137,12 +138,14 @@ router.post('/register_salvar', async (req, res) => {
 						}
 					});						
 				});
-				console.log(user_main.length);
+				*/
 
 				if(user_main.length > 2){
 					pusher = {
 						estabelecimento: id_main
-					}
+					};
+					console.log(pusher);
+
 					await user_main.salvos.push(pusher);
 					await user_main.save();
 					
