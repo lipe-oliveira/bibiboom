@@ -64,6 +64,23 @@ router.get('/get_feeds/:id', async (req, res) => {
 	}
 });
 
+router.get('/get_userr_salvos', async (req, res) => {
+	try {
+		const { email } = req.body;
+		if(await User.findOne({email})){
+			User.findOne({email}).then(user => {
+				user.salvos.forEach(salvos => {
+					console.log(salvos);
+				});
+			});
+		}
+		return res.send(await User.find({ }).populate('salvos.estabelecimento'));
+	} catch (err) {
+		console.log(err);
+	}
+});
+
+
 router.get('/get_users', async (req, res) => {
 	try {
 		return res.send(await User.find({ }).populate('salvos.estabelecimento'));
@@ -169,9 +186,11 @@ router.post('/register_salvar', async (req, res) => {
 	}
 });
 
+
 router.post('/authenticate', async (req, res) => {
 	try {
 		console.log('/authenticate');
+		console.log(email);
 		const { email, password } = req.body;
 
 		const user = await User.findOne({ email }).select('+password');
