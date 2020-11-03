@@ -64,7 +64,7 @@ router.get('/get_feeds/:id', async (req, res) => {
 	}
 });
 
-router.get('/get_userr_salvos', async (req, res) => {
+router.post('/post_get_user_salvos', async (req, res) => {
 	try {
 		const { email } = req.body;
 		if(await User.findOne({email})){
