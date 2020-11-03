@@ -72,7 +72,7 @@ router.post('/post_get_user_salvos', async (req, res) => {
 			User.findOne({email}).populate('salvos.estabelecimento').then(user => {
 				user.salvos.forEach(salvo => {
 					if( salvo.length > 1){
-						return res.send(await User.find({ }).populate('salvos.estabelecimento'));
+						res.send(await User.findOne({ }).populate('salvos.estabelecimento'));
 					}
 				});
 			});
