@@ -67,14 +67,17 @@ router.get('/get_feeds/:id', async (req, res) => {
 router.post('/post_get_user_salvos', async (req, res) => {
 	try {
 		const { email } = req.body;
+		let 
 		if(await User.findOne({email})){
 			User.findOne({email}).populate('salvos.estabelecimento').then(user => {
-				user.salvos.forEach(salvos => {
-					console.log(salvos);
+				user.salvos.forEach(salvo => {
+					if( salvo > 1){
+						return res.send(await User.find({ }).populate('salvos.estabelecimento'));
+					}
 				});
 			});
 		}
-		return res.send(await User.find({ }).populate('salvos.estabelecimento'));
+		return res.status(400).send("Não foi possível encontrar nenhum salvo");
 	} catch (err) {
 		console.log(err);
 	}
