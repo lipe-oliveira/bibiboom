@@ -1,12 +1,20 @@
 const mongoose = require('../../database/index');
 const bcrypt = require('bcryptjs');
+const { Double } = require('mongodb');
 
 const schema_project = new mongoose.Schema({
 	text: {
 		type: String,
 		required: true
 	},
+	
+	likes: {
+		type:String
+	},
 
+	hashtags: [{
+
+	}],
 	
 	user: {
 		type: mongoose.Schema.Types.ObjectId,

@@ -64,6 +64,7 @@ router.get('/get_feeds/:id', async (req, res) => {
 	}
 });
 
+
 router.post('/post_get_user_salvos', async (req, res) => {
 	try {
 		const { email } = req.body;
@@ -225,6 +226,23 @@ router.post('/feed', async (req, res) => {
 	}
 });
 
+router.post('/feed_like', async (req, res) => {
+	try {
+
+		const {id} = req.body;
+		const feeder = await feed.findOne({id});
+		feeder.likes = feeder.likes + 1;
+
+
+		return res.send(await feed.findOneAndUpdate({id}, feeder));
+		//return res.send({ user, token: generateToken({ id: user.id }) });
+	} catch (err) {
+		console.log('erro: ' + err);
+		return res.status(400).send({ error: `Falha de autenticação!` });
+	}
+});
+
+
 router.get('/get_restaurantes', async (req, res) => {
 	try {
 		const resp = await Restaurante.find({}).populate('ratings.user').populate('fotos');
@@ -269,7 +287,6 @@ router.post('/post_restaurantes', async (req, res) => {
 			await restaurante.ratings.push(pusherr);
 			await restaurante.save();
 
-			console.log("OIOIOI");
 			let rest = await Restaurante.findOne({ id });
 			rest.fotos = "";
 			res.send(rest);
