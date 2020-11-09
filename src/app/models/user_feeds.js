@@ -1,6 +1,6 @@
 const mongoose = require('../../database/index');
 const bcrypt = require('bcryptjs');
-const { Double } = require('mongodb');
+const { Double, Int32 } = require('mongodb');
 
 const schema_project = new mongoose.Schema({
 	text: {
@@ -9,7 +9,8 @@ const schema_project = new mongoose.Schema({
 	},
 	
 	likes: {
-		type:String
+		type:Number,
+		required:false
 	},
 
 	hashtags: [{

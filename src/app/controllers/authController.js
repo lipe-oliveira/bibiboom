@@ -229,12 +229,12 @@ router.post('/feed', async (req, res) => {
 router.post('/feed_like', async (req, res) => {
 	try {
 
-		const {id} = req.body;
-		const feeder = await feed.findOne({id});
+		const {_id} = req.body;
+		let feeder = await feed.findOne({_id});
 		feeder.likes = feeder.likes + 1;
 
 
-		return res.send(await feed.findOneAndUpdate({id}, feeder));
+		return res.send(await feed.findOneAndUpdate({_id}, feeder));
 		//return res.send({ user, token: generateToken({ id: user.id }) });
 	} catch (err) {
 		console.log('erro: ' + err);
