@@ -8,7 +8,6 @@ const Receita = require('../models/user_receitas');
 const auth = require('../../config/auth.json');
 const bcrypt = require('bcryptjs');
 const { Int32 } = require('mongodb');
-const { parse } = require('path');
 const router = express.Router();
 
 console.log('/authController.js');
@@ -233,13 +232,7 @@ router.post('/feed_like', async (req, res) => {
 
 		const {_id} = req.body;
 		let feeder = await feed.findOne({_id});
-		if(parseInt(feeder.likes) < 1){
-			feeder.likes = 1;
-		}
-		else{
-			feeder.likes = 1 + parseInt(feeder.likes);	
-		}
-		
+		feeder.likes = 1 + parseInt(feeder.likes)||0;
 
 
 		return res.send(await feed.findOneAndUpdate({_id}, feeder));

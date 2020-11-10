@@ -10,7 +10,8 @@ const schema_project = new mongoose.Schema({
 	
 	likes: {
 		type:Number,
-		required:false
+		required:false,
+		integer:true
 	},
 
 	hashtags: [{
