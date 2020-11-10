@@ -140,15 +140,15 @@ router.post('/register_change_restricao', async (req, res) => {
 router.post('/register_salvar', async (req, res) => {
 	const { email, id } = req.body;
 	let user_main = await User.findOne({email});
+	console.log(email + " " + id);
 
 	try {		
 		if (await User.findOne({ email })) {
 			if(await Restaurante.findOne({id})){
-				console.log(email + " " + id);
+				console.log(email + " a " + id);
+
 
 				const { _id }  = await Restaurante.findOne({id});
-
-
 				
 				await User.findOne({ email }).then(user => {
 					user.salvos.forEach((saved) => {
