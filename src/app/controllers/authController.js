@@ -33,8 +33,8 @@ router.put('/update/:id', async (req, res) => {
 router.post('/post_get_id', async (req, res) => {
 	try {
 		const { email } = req.body;
-		const { id } = await User.findOne({ email });
-		res.send({ id });
+		const { _id } = await User.findOne({ email });
+		res.send({ _id });
 	} catch (err) {
 		console.log(err);
 		res.status(400).send({ error: 'Email not found!' });
