@@ -234,9 +234,9 @@ router.post('/feed_like', async (req, res) => {
 		let feeder = await feed.findOne({_id});
 		feeder.likes = 1 + parseInt(feeder.likes)||0;
 
+		feeder_main = await feed.findOneAndUpdate({_id}, feeder)
 
-		return res.send(await feed.findOneAndUpdate({_id}, feeder));
-		//return res.send({ user, token: generateToken({ id: user.id }) });
+		return res.send(feeder_main);
 	} catch (err) {
 		console.log('erro: ' + err);
 		return res.status(400).send({ error: `Falha de autenticação!` });
