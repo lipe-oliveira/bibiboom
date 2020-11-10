@@ -236,7 +236,10 @@ router.post('/feed_like', async (req, res) => {
 		if(parseInt(feeder.likes) < 1){
 			feeder.likes = 1;
 		}
-		feeder.likes = 1 + parseInt(feeder.likes);
+		else{
+			feeder.likes = 1 + parseInt(feeder.likes);	
+		}
+		
 
 
 		return res.send(await feed.findOneAndUpdate({_id}, feeder));
