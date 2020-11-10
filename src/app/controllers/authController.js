@@ -139,6 +139,7 @@ router.post('/register_change_restricao', async (req, res) => {
 
 router.post('/register_salvar', async (req, res) => {
 	const { email, id } = req.body;
+	console.log(email + " " + id);
 	let user_main = await User.findOne({email});
 
 	try {		
