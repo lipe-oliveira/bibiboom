@@ -72,6 +72,7 @@ router.get('/get_feeds/:id', async (req, res) => {
 router.post('/post_get_user_salvos', async (req, res) => {
 	try {
 		const { email } = req.body;
+		console.log(email);
 		if(await User.findOne({email})){
 			return res.send(await User.findOne({ }).populate('salvos.estabelecimento'));
 		}
