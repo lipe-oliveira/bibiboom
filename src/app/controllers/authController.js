@@ -194,9 +194,10 @@ router.post('/register_salvar', async (req, res) => {
 router.post('/authenticate', async (req, res) => {
 	try {
 		console.log('/authenticate');
-		console.log(email);
 		const { email, password } = req.body;
+		console.log(email);
 
+	
 		const user = await User.findOne({ email }).select('+password');
 
 		if (!user) {
