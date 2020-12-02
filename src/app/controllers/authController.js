@@ -253,8 +253,9 @@ router.post('/feed_like', async (req, res) => {
 router.get('/get_restaurantes', async (req, res) => {
 	try {
 		const resp = await Restaurante.find({}).populate('ratings.user').populate('fotos');
+		console.log(resp)
 		//resp.delete = resp.fotos;
-		return await res.send(resp);
+		return await res.send({resp});
 	} catch (err) {
 		console.log(err);
 		return res.status(400).send(err);
