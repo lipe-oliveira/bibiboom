@@ -212,7 +212,7 @@ router.post('/authenticate', async (req, res) => {
 
 		user.password = undefined;
 
-		return res.send( user );
+		return res.send({ user });
 		//return res.send({ user, token: generateToken({ id: user.id }) });
 	} catch (err) {
 		console.log('erro: ' + err);
