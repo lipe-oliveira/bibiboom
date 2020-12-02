@@ -36,7 +36,7 @@ router.post('/post_get_id', async (req, res) => {
 		
 		const { email } = req.body;
 		console.log(email);
-		const { _id } = await User.findOne( email );
+		const { _id } = await User.findOne( {email} );
 		res.send({ _id });
 	} catch (err) {
 		console.log(err);
