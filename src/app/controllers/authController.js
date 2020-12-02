@@ -200,17 +200,9 @@ router.post('/authenticate', async (req, res) => {
 
 	
 		const user = await User.findOne({ email }).select('+password');
-		console.log(user)
-		if (!user) {
-			return res.status(400).send({ error: 'Usuário não encontrado' });
-		}
-
-		if (!(await bcrypt.compare(password, user.password))) {
-			return res.status(400).send({ error: 'Senha errada!' });
-		}
+		console.log(user);
 
 		user.password = undefined;
-
 		return res.send({ user });
 		//return res.send({ user, token: generateToken({ id: user.id }) });
 	} catch (err) {
