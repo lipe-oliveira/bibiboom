@@ -36,7 +36,7 @@ router.post('/post_get_id', async (req, res) => {
 		
 		const { email } = req.body;
 		console.log(email);
-		const { _id } = await User.findOne({ email });
+		const { _id } = await User.findOne( email );
 		res.send({ _id });
 	} catch (err) {
 		console.log(err);
@@ -199,7 +199,8 @@ router.post('/authenticate', async (req, res) => {
 		console.log(email);
 
 	
-		const user = await User.findOne({ email }).select('+password');
+		//const user = await User.findOne({ email }).select('+password');
+		const user = await User.findOne({ email });
 
 		if (!user) {
 			return res.status(400).send({ error: 'Usuário não encontrado' });
@@ -211,7 +212,7 @@ router.post('/authenticate', async (req, res) => {
 
 		user.password = undefined;
 
-		return res.send({ user });
+		return res.send( user );
 		//return res.send({ user, token: generateToken({ id: user.id }) });
 	} catch (err) {
 		console.log('erro: ' + err);
